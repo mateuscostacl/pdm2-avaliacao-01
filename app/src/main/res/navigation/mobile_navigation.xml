@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.pdm2_avaliacao_01.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_descricao"
+        android:name="com.example.pdm2_avaliacao_01.DescricaoFragment"
+        android:label="@string/menu_descricao"
+        tools:layout="@layout/fragment_descricao" />
+
+    <fragment
+        android:id="@+id/nav_detalhes"
+        android:name="com.example.pdm2_avaliacao_01.DetalhesFragment"
+        android:label="@string/menu_detalhes"
+        tools:layout="@layout/fragment_detalhes" />
+
+    <fragment
+        android:id="@+id/nav_maior_menor"
+        android:name="com.example.pdm2_avaliacao_01.MaiorMenorFragment"
+        android:label="@string/menu_maior_menor"
+        tools:layout="@layout/fragment_maior_menor" />
+
+    <fragment
+        android:id="@+id/nav_jogar"
+        android:name="com.example.pdm2_avaliacao_01.JogarFragment"
+        android:label="@string/menu_jogar"
+        tools:layout="@layout/fragment_jogar" />
+</navigation>
