@@ -2,63 +2,117 @@ package com.example.pdm2_avaliacao_01;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private String TAG = HomeFragment.class.getSimpleName();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private final int POKEMON_LENGTH = 898;
 
-    public HomeFragment() {
-        // Required empty public constructor
+    View root;
+
+    Button btQtdPokemon;
+    Button btIdxPokemon;
+    Button btConsumirAPI;
+    Button btReiniciar;
+
+    EditText etQtdPokemon;
+    EditText etIdxPokemon;
+
+    TextView tvUrlApi;
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+
+        root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        conectarComViewport();
+        escutarCliques();
+
+        return root;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    private void conectarComViewport() {
+        btQtdPokemon = root.findViewById(R.id.bt_qtd_pokemon);
+        btIdxPokemon = root.findViewById(R.id.bt_idx_pokemon);
+        btConsumirAPI = root.findViewById(R.id.bt_consumir_api);
+        btReiniciar = root.findViewById(R.id.bt_reiniciar);
+
+        etQtdPokemon = root.findViewById(R.id.et_qtd_pokemon);
+        etIdxPokemon = root.findViewById(R.id.et_idx_pokemon);
+
+        tvUrlApi = root.findViewById(R.id.tv_url_api);
+    }
+
+    private void escutarCliques() {
+        btQtdPokemon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Gerar quantidade de pokemons coletados, aleatoriamente
+                etQtdPokemon.setText("" + Util.random(18, 20));
+                btQtdPokemon.setEnabled(false);
+                btIdxPokemon.setEnabled(true);
+            }
+        });
+        btIdxPokemon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Gerar indice inicial para coleta de pokemons, aleatoriamente
+                etIdxPokemon.setText("" + Util.random(POKEMON_LENGTH - Integer.parseInt(etQtdPokemon.getText().toString())));
+                btIdxPokemon.setEnabled(false);
+
+
+                String limit = etQtdPokemon.getText().toString();
+                String offset = etIdxPokemon.getText().toString();
+                String url = "https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset;
+                tvUrlApi.setText("URL: "+ url);
+                btConsumirAPI.setEnabled(true);
+            }
+        });
+        btReiniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etQtdPokemon.setText("");
+                etIdxPokemon.setText("");
+                btQtdPokemon.setEnabled(true);
+                btIdxPokemon.setEnabled(false);
+            }
+        });
+        btConsumirAPI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        btReiniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etQtdPokemon.setText("");
+                etIdxPokemon.setText("");
+                btQtdPokemon.setEnabled(true);
+                btIdxPokemon.setEnabled(false);
+            }
+        });
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onClick(View view) {
+//        if(view.getId() == R.id.bt_qtd_pokemon){
+//            //Gerar quantidade de pokemons coletados, aleatoriamente
+//            etQtdPokemon.setText(Util.random(3, 20));
+//            Log.e(TAG, "FOi" );
+//        }
+        if (view.getId() == R.id.bt_idx_pokemon) {
+            //Gerar indice inicial para coleta de pokemons, aleatoriamente
+            etIdxPokemon.setText(Util.random(3, 20));
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }

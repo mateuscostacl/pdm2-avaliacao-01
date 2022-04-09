@@ -11,13 +11,16 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsFragment extends Fragment {
+public class MapFragment extends Fragment {
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -44,23 +47,47 @@ public class MapsFragment extends Fragment {
         }
     };
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_maps, container, false);
-
-        return view;
-    }
+    MapView mMapView;
+    private GoogleMap googleMap;
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(callback);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // inflat and return the layout
+        View v = inflater.inflate(R.layout.fragment_map, container,
+                false);
+        mMapView = (MapView) v.findViewById(R.id.mapView);
+        mMapView.onCreate(savedInstanceState);
+
+        mMapView.onResume();// needed to get the map to display immediately
+
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        mMapView.getMapAsync(callback);
+        // latitude and longitude
+        double latitude = 17.385044;
+        double longitude = 78.486671;
+
+        // create marker
+        MarkerOptions marker = new MarkerOptions().position(
+                new LatLng(latitude, longitude)).title("Hello Maps");
+
+        // Changing marker icon
+        marker.icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+
+        // adding marker
+        googleMap.addMarker(marker);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(17.385044, 78.486671)).zoom(12).build();
+        googleMap.animateCamera(CameraUpdateFactory
+                .newCameraPosition(cameraPosition));
+
+        // Perform any camera updates here
+        return v;
     }
 }
