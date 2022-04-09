@@ -2,29 +2,20 @@ package com.example.pdm2_avaliacao_01.services;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pdm2_avaliacao_01.pojo.Categoria;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class Service extends AppCompatActivity {
+public class PokemonService extends AppCompatActivity {
 
-    private String TAG = Service.class.getSimpleName();
+    private String TAG = com.example.pdm2_avaliacao_01.services.PokemonService.class.getSimpleName();
 
     public String getPokemons(String url) {
         String pokemons = null;
 
         try {
-            pokemons = new PokemonService().execute(url).get();
+            pokemons = new PokemonServiceAsyncTask().execute(url).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -33,14 +24,14 @@ public class Service extends AppCompatActivity {
         return pokemons;
     }
 
-    private class PokemonService extends AsyncTask<String, Void, String> {
+    private class PokemonServiceAsyncTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
 
             HttpHandler sh = new HttpHandler();
 
-            String jsonStr = sh.usarServico(params[0]);
+            String jsonStr = sh.usarServico("https://pokeapi.co/api/v2/pokemon?limit=16&offset=775");
 
             Log.e(TAG, "Endereço da URL: " + params[0]);
             Log.e(TAG, "Resposta da URL: " + jsonStr);
