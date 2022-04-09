@@ -1,4 +1,4 @@
-package com.example.pdm2_avaliacao_01;
+package com.example.pdm2_avaliacao_01.ui;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import com.example.pdm2_avaliacao_01.R;
 import com.example.pdm2_avaliacao_01.databinding.ActivityMapsBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;

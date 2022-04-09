@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pdm2avaliacao01">
         <activity
-            android:name=".MapsActivity"
+            android:name=".ui.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps"
             android:theme="@style/Theme.Pdm2avaliacao01" />

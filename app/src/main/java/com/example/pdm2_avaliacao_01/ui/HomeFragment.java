@@ -1,10 +1,11 @@
-package com.example.pdm2_avaliacao_01;
+package com.example.pdm2_avaliacao_01.ui;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.pdm2_avaliacao_01.R;
+import com.example.pdm2_avaliacao_01.Util;
+
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private String TAG = HomeFragment.class.getSimpleName();
 
-    private final int POKEMON_LENGTH = 898;
+    private final int TOTAL_POKEMONS = 898;
+    private final int MIN_EXPOSICAO = 3;
+    private final int MAX_EXPOSICAO = 20;
 
     View root;
 
@@ -58,7 +64,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 //Gerar quantidade de pokemons coletados, aleatoriamente
-                etQtdPokemon.setText("" + Util.random(18, 20));
+                etQtdPokemon.setText("" + Util.random(MIN_EXPOSICAO, MAX_EXPOSICAO));
                 btQtdPokemon.setEnabled(false);
                 btIdxPokemon.setEnabled(true);
             }
@@ -67,13 +73,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 //Gerar indice inicial para coleta de pokemons, aleatoriamente
-                etIdxPokemon.setText("" + Util.random(POKEMON_LENGTH - Integer.parseInt(etQtdPokemon.getText().toString())));
+                int max = TOTAL_POKEMONS - Integer.parseInt(etQtdPokemon.getText().toString());
+                etIdxPokemon.setText("" + Util.random(max));
                 btIdxPokemon.setEnabled(false);
 
 
                 String limit = etQtdPokemon.getText().toString();
                 String offset = etIdxPokemon.getText().toString();
                 String url = "https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset;
+                Log.e(TAG, url);
                 tvUrlApi.setText("URL: "+ url);
                 btConsumirAPI.setEnabled(true);
             }
@@ -97,6 +105,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onClick(View view) {
                 etQtdPokemon.setText("");
                 etIdxPokemon.setText("");
+                tvUrlApi.setText("URL: ");
                 btQtdPokemon.setEnabled(true);
                 btIdxPokemon.setEnabled(false);
             }

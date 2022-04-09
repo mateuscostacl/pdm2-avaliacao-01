@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.Menu;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.pdm2_avaliacao_01.ui.MapsActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;

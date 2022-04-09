@@ -1,4 +1,4 @@
-package com.example.pdm2_avaliacao_01;
+package com.example.pdm2_avaliacao_01.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.pdm2_avaliacao_01.R;
 import com.example.pdm2_avaliacao_01.placeholder.PlaceholderContent;
 
 /**
