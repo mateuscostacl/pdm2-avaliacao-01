@@ -20,8 +20,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
         String sql = ""
                 + "CREATE TABLE  pokemon ("
-//                + "_id integer PRIMARY KEY AUTOINCREMENT,"
-                + "id integer PRIMARY KEY,"
+                + "id integer PRIMARY KEY AUTOINCREMENT,"
+                + "idPoke TEXT,"
                 + "nome TEXT,"
                 + "imagem TEXT,"
                 + "peso TEXT,"

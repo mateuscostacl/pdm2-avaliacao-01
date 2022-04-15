@@ -12,9 +12,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pdm2_avaliacao_01.R;
 import com.example.pdm2_avaliacao_01.Util;
+import com.example.pdm2_avaliacao_01.dao.PokemonDao;
+import com.example.pdm2_avaliacao_01.db.DbConnect;
+import com.example.pdm2_avaliacao_01.pojo.Pokemon;
+import com.example.pdm2_avaliacao_01.resources.GsonPokemonResource;
+import com.example.pdm2_avaliacao_01.services.PokemonService;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -25,6 +33,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private final int MAX_EXPOSICAO = 20;
 
     View root;
+
+    String url;
 
     Button btQtdPokemon;
     Button btIdxPokemon;
@@ -60,6 +70,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void escutarCliques() {
+
         btQtdPokemon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +80,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 btIdxPokemon.setEnabled(true);
             }
         });
+
         btIdxPokemon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,12 +92,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                 String limit = etQtdPokemon.getText().toString();
                 String offset = etIdxPokemon.getText().toString();
-                String url = "https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset;
+                url = "https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset;
                 Log.e(TAG, url);
-                tvUrlApi.setText("URL: "+ url);
+                tvUrlApi.setText("URL: " + url);
                 btConsumirAPI.setEnabled(true);
             }
         });
+
         btReiniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,11 +108,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 btIdxPokemon.setEnabled(false);
             }
         });
+
         btConsumirAPI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PokemonService ps = new PokemonService();
+                List<Pokemon> pokemons = ps.getPokemons(url);
+
+                salvarNoBD(pokemons);
             }
         });
+
         btReiniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +129,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 btIdxPokemon.setEnabled(false);
             }
         });
+    }
+
+    private void salvarNoBD(List<Pokemon> pokemons) {
+
+        PokemonDao pokemonDao = new PokemonDao(root.getContext());
+
+        pokemonDao.limparTabela();
+
+        for (int i = 0; i < pokemons.size(); i++) {
+            if(pokemonDao.salvarOuAtualizar(pokemons.get(i)))
+                Util.mostrarUmaMensagem_Toast(root.getContext(), "Salvo no BD!");
+            else
+                Util.mostrarUmaMensagem_Toast(root.getContext(), "Erro ao tentar salvar no DB!");
+        }
+//        Util.mostrarUmaMensagem_Toast(root.getContext(), "Salvo no BD!");
     }
 
     @Override

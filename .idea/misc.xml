@@ -6,13 +6,15 @@
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/content_maps.xml" value="0.14628623188405798" />
-        <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/fragment_descricao.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/fragment_descricao.xml" value="0.4" />
+        <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/fragment_detalhes.xml" value="0.2" />
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/fragment_detalhes_list.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/fragment_jogar.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/fragment_maior_menor.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/fragment_map.xml" value="0.14628623188405798" />
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/fragment_maps.xml" value="0.14628623188405798" />
+        <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/item_lista.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/layout/nav_header_main.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/emersonpereira/AndroidStudioProjects/pdm2avaliacao01/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
       </map>

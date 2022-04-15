@@ -1,72 +1,67 @@
 package com.example.pdm2_avaliacao_01.ui;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.pdm2_avaliacao_01.R;
-import com.example.pdm2_avaliacao_01.placeholder.PlaceholderContent;
+import com.example.pdm2_avaliacao_01.adapters.PokemonAdapter;
+import com.example.pdm2_avaliacao_01.dao.PokemonDao;
+import com.example.pdm2_avaliacao_01.pojo.Pokemon;
 
-/**
- * A fragment representing a list of Items.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class DetalhesFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 2;
+    private String TAG = DetalhesFragment.class.getSimpleName();
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public DetalhesFragment() {
-    }
+    private PokemonAdapter pokemonAdapter;
+    private ListView lvLista;
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static DetalhesFragment newInstance(int columnCount) {
-        DetalhesFragment fragment = new DetalhesFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    View root;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
-    }
+    private ConstraintLayout clListaVazia;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detalhes_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS));
+        root = inflater.inflate(R.layout.fragment_detalhes, container, false);
+
+        conectarComViewport();
+        popularLista();
+
+        return root;
+    }
+
+    private void conectarComViewport() {
+        lvLista = root.findViewById(R.id.lv_lista);
+        clListaVazia = root.findViewById(R.id.cl_lista_vazia);
+    }
+
+    public void popularLista() {
+        PokemonDao pokemonDao = new PokemonDao(root.getContext());
+        List<Pokemon> pokemons = (ArrayList<Pokemon>) pokemonDao.retornarTodos();
+
+        if (pokemons.size() == 0) {
+            Log.e(TAG, "A LISTA ESTA VAZIA");
+//            clListaVazia.setVisibility(View.VISIBLE);
+            return;
         }
-        return view;
+//        clListaVazia.setVisibility(View.INVISIBLE);
+
+        pokemonAdapter = new PokemonAdapter(pokemons, getActivity());
+        lvLista.setAdapter(pokemonAdapter);
     }
 }

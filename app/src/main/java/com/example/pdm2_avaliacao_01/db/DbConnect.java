@@ -24,19 +24,4 @@ public class DbConnect {
         return this.db;
     }
 
-//    public String insereDados(String titulo, String autor, String editora){
-//
-//        ContentValues valores = new ContentValues();
-//        valores.put(DbHelper.TITULO, titulo);
-//        valores.put(DbHelper.AUTOR, autor);
-//        valores.put(DbHelper.EDITORA, editora);
-//
-//        long resultado = db.insert(DbHelper.TABELA, null, valores);
-//        db.close();
-//
-//        if (resultado == -1)
-//            return "Erro ao inserir registro";
-//        else
-//            return "Registro inserido com sucesso";
-//    }
 }

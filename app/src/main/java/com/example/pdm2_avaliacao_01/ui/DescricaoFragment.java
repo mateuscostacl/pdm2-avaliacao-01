@@ -2,65 +2,66 @@ package com.example.pdm2_avaliacao_01.ui;
 
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.pdm2_avaliacao_01.R;
+import com.example.pdm2_avaliacao_01.dao.PokemonDao;
+import com.example.pdm2_avaliacao_01.pojo.Pokemon;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DescricaoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class DescricaoFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private String TAG = DescricaoFragment.class.getSimpleName();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    View root;
 
-    public DescricaoFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DescricaoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DescricaoFragment newInstance(String param1, String param2) {
-        DescricaoFragment fragment = new DescricaoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private ConstraintLayout clListaVazia;
+    private TextView tvLista;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_descricao, container, false);
+
+        root = inflater.inflate(R.layout.fragment_descricao, container, false);
+
+        conectarComViewport();
+        popularLista();
+
+        return root;
+    }
+
+    private void conectarComViewport() {
+        clListaVazia = root.findViewById(R.id.cl_lista_vazia);
+        tvLista = root.findViewById(R.id.tv_lista);
+    }
+
+    public void popularLista() {
+        PokemonDao pokemonDao = new PokemonDao(root.getContext());
+        List<Pokemon> pokemons = (ArrayList<Pokemon>) pokemonDao.retornarTodos();
+
+        if(pokemons.size() == 0) {
+            Log.e(TAG, "A LISTA ESTA VAZIA");
+            clListaVazia.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        String pks = "";
+
+        for (int i = 0; i < pokemons.size(); i++) {
+            pks = pks + pokemons.get(i).getIdPoke() + " - " + pokemons.get(i).getNome() + "\n";
+        }
+
+        tvLista.setText(pks);
     }
 }
