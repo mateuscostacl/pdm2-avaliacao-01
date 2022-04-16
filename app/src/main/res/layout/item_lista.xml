@@ -9,39 +9,80 @@
         android:layout_height="wrap_content"
         android:id="@+id/iv_imagem"
         android:src="@drawable/ic_launcher_background"
-        android:layout_marginRight="10dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true">
     </ImageView>
 
     <TextView
+        android:id="@+id/tv_nome"
+        android:text="Nome"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Florianópolis"
-        android:id="@+id/tv_nome"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/iv_imagem">
     </TextView>
 
     <TextView
+        android:id="@+id/tv_tipo"
+        android:text="Tipo"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="italic"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="/SC" android:id="@+id/tv_tipo"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/tv_nome">
     </TextView>
 
     <TextView
+        android:id="@+id/tv_exp_basica"
+        android:text="Experiência Básica"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Capital de Santa Catarina"
-        android:id="@+id/tv_altura"
         android:textColor="@android:color/darker_gray"
         android:layout_below="@+id/tv_nome"
+        android:layout_toRightOf="@+id/iv_imagem">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_altura"
+        android:text="Altura"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_below="@+id/tv_exp_basica"
+        android:layout_toRightOf="@+id/iv_imagem">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_peso"
+        android:text="Peso"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_below="@+id/tv_altura"
+        android:layout_toRightOf="@+id/iv_imagem">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_habilidade"
+        android:text="Habilidades"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_below="@+id/tv_peso"
         android:layout_toRightOf="@+id/iv_imagem">
     </TextView>
 </RelativeLayout>

@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pdm2_avaliacao_01.R;
 import com.example.pdm2_avaliacao_01.pojo.Pokemon;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,11 +54,14 @@ public class PokemonAdapter extends BaseAdapter {
 //        }
         Pokemon pokemon = items.get(position);
         if (pokemon != null) {
-            ((TextView) v.findViewById(R.id.tv_nome)).setText(pokemon.getNome());
-            ((TextView) v.findViewById(R.id.tv_tipo)).setText("/" + pokemon.getTipo());
-            ((TextView) v.findViewById(R.id.tv_altura)).setText(pokemon.getAltura());
+            ((TextView) v.findViewById(R.id.tv_nome)).setText(pokemon.getIdPoke()+ " " + pokemon.getNome());
+            ((TextView) v.findViewById(R.id.tv_tipo)).setText("(" + pokemon.getTipo() + ")");
+            ((TextView) v.findViewById(R.id.tv_exp_basica)).setText("Exp: "+pokemon.getExpBasica());
+            ((TextView) v.findViewById(R.id.tv_altura)).setText("Altura: "+pokemon.getAltura());
+            ((TextView) v.findViewById(R.id.tv_peso)).setText("Peso: "+pokemon.getPeso());
+            ((TextView) v.findViewById(R.id.tv_habilidade)).setText("Habilidades: "+pokemon.getHabilidade());
 //            ((ImageView) v.findViewById(R.id.iv_imagem)).setImageResource(pokemon.getImagem());
-//            Picasso.get().load(pokemon.getImagem()).into((ImageView) v.findViewById(R.id.iv_imagem));
+            Picasso.get().load(pokemon.getImagem()).resize(250, 250).into((ImageView) v.findViewById(R.id.iv_imagem));
         }
         return v;
     }
