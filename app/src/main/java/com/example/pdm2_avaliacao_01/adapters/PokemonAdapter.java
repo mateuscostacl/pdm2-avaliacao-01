@@ -46,12 +46,6 @@ public class PokemonAdapter extends BaseAdapter {
 
         Pokemon p = items.get(position);
 
-//        View v = convertView;
-//        if (v == null) {
-//            Context ctx = getContext();
-//            LayoutInflater vi = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            v = vi.inflate(R.layout.item_lista, null);
-//        }
         Pokemon pokemon = items.get(position);
         if (pokemon != null) {
             ((TextView) v.findViewById(R.id.tv_nome)).setText(pokemon.getIdPoke()+ " " + pokemon.getNome());
@@ -60,7 +54,6 @@ public class PokemonAdapter extends BaseAdapter {
             ((TextView) v.findViewById(R.id.tv_altura)).setText("Altura: "+pokemon.getAltura());
             ((TextView) v.findViewById(R.id.tv_peso)).setText("Peso: "+pokemon.getPeso());
             ((TextView) v.findViewById(R.id.tv_habilidade)).setText("Habilidades: "+pokemon.getHabilidade());
-//            ((ImageView) v.findViewById(R.id.iv_imagem)).setImageResource(pokemon.getImagem());
             Picasso.get().load(pokemon.getImagem()).resize(250, 250).into((ImageView) v.findViewById(R.id.iv_imagem));
         }
         return v;

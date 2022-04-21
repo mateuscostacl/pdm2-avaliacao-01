@@ -143,7 +143,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             else
                 Util.mostrarUmaMensagem_Toast(root.getContext(), "Erro ao tentar salvar no DB!");
         }
-//        Util.mostrarUmaMensagem_Toast(root.getContext(), "Salvo no BD!");
     }
 
     @Override

@@ -7,60 +7,124 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.pdm2_avaliacao_01.R;
+import com.example.pdm2_avaliacao_01.dao.PokemonDao;
+import com.example.pdm2_avaliacao_01.pojo.Pokemon;
+import com.squareup.picasso.Picasso;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MaiorMenorFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
 public class MaiorMenorFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    View root;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    TextView tvNomeMaiorPeso;
+    TextView tvMaiorPeso;
+    ImageView ivMaiorPeso;
 
-    public MaiorMenorFragment() {
-        // Required empty public constructor
-    }
+    TextView tvNomeMenorPeso;
+    TextView tvMenorPeso;
+    ImageView ivMenorPeso;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MaiorMenorFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MaiorMenorFragment newInstance(String param1, String param2) {
-        MaiorMenorFragment fragment = new MaiorMenorFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    TextView tvNomeMaiorAltura;
+    TextView tvMaiorAltura;
+    ImageView ivMaiorAltura;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    TextView tvNomeMenorAltura;
+    TextView tvMenorAltura;
+    ImageView ivMenorAltura;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_maior_menor, container, false);
+        root = inflater.inflate(R.layout.fragment_maior_menor, container, false);
+
+        conectarComViewport();
+        pegarMaiorMenor();
+
+        return root;
+    }
+
+    private void conectarComViewport() {
+        tvNomeMaiorPeso = root.findViewById(R.id.tv_nome_maior_peso);
+        tvMaiorPeso = root.findViewById(R.id.tv_maior_peso);
+        ivMaiorPeso = root.findViewById(R.id.iv_imagem_maior_peso);
+
+        tvNomeMenorPeso = root.findViewById(R.id.tv_nome_menor_peso);
+        tvMenorPeso = root.findViewById(R.id.tv_menor_peso);
+        ivMenorPeso = root.findViewById(R.id.iv_imagem_menor_peso);
+
+        tvNomeMaiorAltura = root.findViewById(R.id.tv_nome_maior_altura);
+        tvMaiorAltura = root.findViewById(R.id.tv_maior_altura);
+        ivMaiorAltura = root.findViewById(R.id.iv_imagem_maior_altura);
+
+        tvNomeMenorAltura = root.findViewById(R.id.tv_nome_menor_altura);
+        tvMenorAltura = root.findViewById(R.id.tv_menor_altura);
+        ivMenorAltura = root.findViewById(R.id.iv_imagem_menor_altura);
+    }
+
+    private void pegarMaiorMenor() {
+        PokemonDao pokemonDao = new PokemonDao(root.getContext());
+        List<Pokemon> pokemonList = pokemonDao.retornarTodos();
+
+        //inicializa um pokemon para ser usado como base
+        Pokemon pMin = new Pokemon();
+        Pokemon pMax = new Pokemon();
+
+        pMax.setPeso("0");
+        pMax.setAltura("0");
+        Pokemon pokemonMaiorPeso = pMax;
+        Pokemon pokemonMaiorAltura = pMax;
+
+        pMin.setPeso(String.valueOf(Integer.MAX_VALUE));
+        pMin.setAltura(String.valueOf(Integer.MAX_VALUE));
+        Pokemon pokemonMenorPeso = pMin;
+        Pokemon pokemonMenorAltura = pMin;
+
+        int peso;
+        int altura;
+
+        for (int i = 0; i < pokemonList.size(); i++) {
+
+            peso = Integer.parseInt(pokemonList.get(i).getPeso());
+            altura = Integer.parseInt(pokemonList.get(i).getAltura());
+
+            //verifica o menor peso
+            if (peso < Integer.parseInt(pokemonMenorPeso.getPeso()))
+                pokemonMenorPeso = pokemonList.get(i);
+
+            //verifica o maior peso
+            if (peso > Integer.parseInt(pokemonMaiorPeso.getPeso()))
+                pokemonMaiorPeso = pokemonList.get(i);
+
+            //verifica a menor altura
+            if (altura < Integer.parseInt(pokemonMenorAltura.getAltura()))
+                pokemonMenorAltura = pokemonList.get(i);
+
+            //verifica a maior altura
+            if (altura > Integer.parseInt(pokemonMaiorAltura.getAltura()))
+                pokemonMaiorAltura = pokemonList.get(i);
+        }
+
+        tvNomeMaiorPeso.setText(pokemonMaiorPeso.getNome());
+        tvMaiorPeso.setText(pokemonMaiorPeso.getPeso());
+        Picasso.get().load(pokemonMaiorPeso.getImagem()).resize(250, 250).into((ImageView) ivMaiorPeso);
+
+        tvNomeMenorPeso.setText(pokemonMenorPeso.getNome());
+        tvMenorPeso.setText(pokemonMenorPeso.getPeso());
+        Picasso.get().load(pokemonMenorPeso.getImagem()).resize(250, 250).into((ImageView) ivMenorPeso);
+
+        tvNomeMaiorAltura.setText(pokemonMaiorAltura.getNome());
+        tvMaiorAltura.setText(pokemonMaiorAltura.getAltura());
+        Picasso.get().load(pokemonMaiorAltura.getImagem()).resize(250, 250).into((ImageView) ivMaiorAltura);
+
+        tvNomeMenorAltura.setText(pokemonMenorAltura.getNome());
+        tvMenorAltura.setText(pokemonMenorAltura.getAltura());
+        Picasso.get().load(pokemonMenorAltura.getImagem()).resize(250, 250).into((ImageView) ivMenorAltura);
+
     }
 }
