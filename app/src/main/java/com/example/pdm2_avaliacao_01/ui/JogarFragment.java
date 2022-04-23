@@ -126,16 +126,17 @@ public class JogarFragment extends Fragment implements View.OnClickListener {
     }
 
     private void askPermissionAndWriteFile() {
+        //recebe se o app tem permissao de escrita em armazenamento externo
         boolean canWrite = askPermission(REQUEST_ID_WRITE_PERMISSION,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (!canWrite) {
-            Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
 
+        //se não tiver permissao, exibe uma mensagem e encerra o metodo
+        if (!canWrite) {
             Toast.makeText(getActivity(),
                     "Você não tem permissão para escrever arquivos.", Toast.LENGTH_LONG).show();
             return;
         }
-        //
+        //se tiver permissao, chama o metodo para escrever em arquivo
         writeFile();
     }
 

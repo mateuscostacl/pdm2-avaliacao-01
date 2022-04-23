@@ -85,11 +85,14 @@ public class MaiorMenorFragment extends Fragment {
         Pokemon pokemonMenorPeso = pMin;
         Pokemon pokemonMenorAltura = pMin;
 
+        //variáveis auxiliares
         int peso;
         int altura;
 
+        //percorrer a lista de pokemons
         for (int i = 0; i < pokemonList.size(); i++) {
 
+            //quarda o peso e a altura do pokemon atual
             peso = Integer.parseInt(pokemonList.get(i).getPeso());
             altura = Integer.parseInt(pokemonList.get(i).getAltura());
 
@@ -110,18 +113,22 @@ public class MaiorMenorFragment extends Fragment {
                 pokemonMaiorAltura = pokemonList.get(i);
         }
 
+        //pokemon de maior peso
         tvNomeMaiorPeso.setText(pokemonMaiorPeso.getNome());
         tvMaiorPeso.setText(pokemonMaiorPeso.getPeso());
         Picasso.get().load(pokemonMaiorPeso.getImagem()).resize(250, 250).into((ImageView) ivMaiorPeso);
 
+        //pokemon de menor peso
         tvNomeMenorPeso.setText(pokemonMenorPeso.getNome());
         tvMenorPeso.setText(pokemonMenorPeso.getPeso());
         Picasso.get().load(pokemonMenorPeso.getImagem()).resize(250, 250).into((ImageView) ivMenorPeso);
 
+        //pokemon de maior altura
         tvNomeMaiorAltura.setText(pokemonMaiorAltura.getNome());
         tvMaiorAltura.setText(pokemonMaiorAltura.getAltura());
         Picasso.get().load(pokemonMaiorAltura.getImagem()).resize(250, 250).into((ImageView) ivMaiorAltura);
 
+        //pokemon de menor altura
         tvNomeMenorAltura.setText(pokemonMenorAltura.getNome());
         tvMenorAltura.setText(pokemonMenorAltura.getAltura());
         Picasso.get().load(pokemonMenorAltura.getImagem()).resize(250, 250).into((ImageView) ivMenorAltura);
